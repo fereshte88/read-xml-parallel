@@ -16,7 +16,8 @@ public class ReadBankFromXmlController {
         if(Objects.isNull(banks)){
             throw new Exception("xml file is empty");
         }
-        banks.getBanks().parallelStream().forEach(bank -> {ExecutorService executor = Executors.newFixedThreadPool(bank.getThreadPool());
+        ExecutorService executor = Executors.newFixedThreadPool(5);
+        banks.getBanks().parallelStream().forEach(bank -> {
                                                                                      executor.submit(new Runnable() {
                                                                                         public void run() {
                                                                                             readBankFromXmlService.printBank(bank);
